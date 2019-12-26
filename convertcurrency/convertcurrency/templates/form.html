@@ -1,0 +1,42 @@
+<html>
+<head>
+</head>
+<body>
+        <form action="" method="post"> 
+                {% csrf_token %}
+				<label for="id_amount">Enter Amount : </label>
+                <input type="text" name="amount" required="" placeholder="Enter Amount " id="id_amount">
+                <br/>
+				<br/>
+				<label for="id_source">Enter Home currency : </label>
+                <select name="source" id="id_source">
+				{%for currency in currencyList%}
+				<option value={{currency}}>{{currency}}</option>
+				{%endfor%}
+				</select>
+                <br/>
+				<label for="id_target">Enter Target currency : </label>
+				<select name="target" id="id_target">
+				{%for currency in currencyList%}
+				<option value={{currency}}>{{currency}}</option>
+				{%endfor%}
+				</select>
+				<br/>
+                <button type="submit" id="submitform" name="submitform" style="background-color:green;color: white;width: 100px;height:30px;border-radius: 5px;padding-top:4px;margin: 5px 0px;font-size: 14px;font-weight: bold;">Go</button>
+            </form>
+			{% if status == 'OK'%}
+				{% if result == 0 or result%}
+					<h2>Converted Amount :</h2>
+					
+					<p>{{amount}} {{base}} = {{result}} {{target}}</p>
+				
+				{% endif %}
+			{%else %}
+				{% if status == 'FAIL'%}
+				<h2> Sorry ! Failed.</h2>
+				{{message}}
+				{%endif%}
+			{%endif%}
+        
+</body>
+</html>
